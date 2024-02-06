@@ -17,10 +17,19 @@ def savequestions(videoid,array):
 
 def loadquestions(videoid):
     if not os.path.exists(f"question/{videoid}.json"):
-        return None
+        return []
     with open(f"question/{videoid}.json", "r") as fp:
         array=json.load(fp)
     return array
+
+def get_questions_from_array(array):
+    resultant_array=[]
+    for i in array:
+        if len(i)<3:
+            continue
+        if i[-1]=="?" or i[-2]=="?" or i[-3]=="?":
+            resultant_array.append(i)
+    return resultant_array
 
 def main(
     ckpt_dir: str,
@@ -53,9 +62,11 @@ def main(
         max_seq_len=max_seq_len,
         max_batch_size=max_batch_size,
     )
+    print("summary")
     summary=read_summary(video_id)
-    if summary==None:
-        return ["No summary generated, generate summary first."]
+    print(summary)
+    while summary==None:
+        summary=read_summary(video_id)
     dialog=[{"role": "system", "content":f"Format the next prompt with the following format: Add a '*' in front of each questions generated.Only generate questions."}
             ,{"role":"user","content":f"Create a set of questions that tests conceptes based on the following lecture summary text: {read_summary(video_id)}"}]
     dialogs = [dialog]
@@ -67,8 +78,8 @@ def main(
     )
     addsystemdialog=[{"role": f"{result[0]['generation']['role']}", "content": f"{result[0]['generation']['content']}"}]
     dialog.append(addsystemdialog[0])
-
-    savequestions(video_id,result[0]['generation']['content'].replace('\n','').split("* "))
+    questions=get_questions_from_array(result[0]['generation']['content'].replace('\n','').split("*"))
+    savequestions(video_id,questions)
 
     print("\n==================================\n")
 

@@ -7,6 +7,7 @@ from llama import Llama, Dialog
 import copy
 
 import torch
+from time import sleep
 torch.cuda.set_device(2)
 import os
 
@@ -151,8 +152,9 @@ def main(
     # f.close()
     
     transcript=transcribe.read_transcript(video_id)
-    if transcript==None:
-        transcript=transcribe.get_transcript_from_url(f"https://www.youtube.com/watch?v={video_id}")
+    while transcript==None:
+        sleep(5)
+        transcript=transcribe.read_transcript(video_id)
     # transcribe.save_transcript(transcript,f"/transcript/{id}.txt")
     # id="52vW8V9srw8"
     # transcript=transcribe.read_transcript(f"/transcript/{id}.txt")

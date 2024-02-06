@@ -44,7 +44,7 @@ def get_transcript_from_url(url):
     ydl_opts = {
         'format': 'mp3/bestaudio/best',
         'outtmpl':'audio/%(id)s.%(ext)s',
-        'k':True,
+        'keepvideo':True,
         # ℹ️ See help(yt_dlp.postprocessor) for a list of available Postprocessors and their arguments
         'postprocessors': [{  # Extract audio using ffmpeg
             'key': 'FFmpegExtractAudio',

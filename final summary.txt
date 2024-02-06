@@ -1,0 +1,20 @@
+Sumary:
+The text discusses the various subspaces that relate to a given transformation represented by a matrix A. The author highlights two important subspaces that every matrix has:
+1. The set of vectors that get hit by the transformation, which is the x-axis in this case. This set includes all the vectors where $a_x = b$, where $a$ and $b$ are the elements of the matrix.
+2. The set of vectors that do not get hit by the transformation, which includes all the vectors that are not on the x-axis.
+The author emphasizes that these two subspaces are important to study in the context of transformations and linear algebra.
+
+Final Summary:
+Summary:
+
+The text discusses the various subspaces associated with a given transformation represented by a matrix A. The author highlights two crucial subspaces:
+1. **Hit vectors**: The set of vectors that get hit by the transformation, which is the x-axis in this case. This set includes all the vectors where $a_x = b$, where $a$ and $b$ are the elements of the matrix.
+2. **Non-hit vectors**: The set of vectors that do not get hit by the transformation, which includes all the vectors that are not on the x-axis.
+The author stresses that these two subspaces are significant to analyze in the context of transformations and linear algebra.
+
+Important words:
+
+* **Hit vectors**: Vectors that get hit by the transformation.
+* **Non-hit vectors**: Vectors that do not get hit by the transformation.
+* **Transformation**: A matrix that represents a transformation.
+* **Linear algebra**: The study of linear equations and their transformations.

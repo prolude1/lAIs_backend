@@ -8,6 +8,7 @@ import subprocess
 import os
 from flask_cors import CORS
 import question
+from time import sleep
 # Flask constructor takes the name of 
 # current module (__name__) as argument.
 
@@ -16,8 +17,9 @@ TOKENIZER_PATH="tokenizer.model"
 
 def get_transcript_url(videoid):
     transcript=transcribe.read_transcript(videoid)
-    if transcript==None:
-        transcript=transcribe.get_transcript_from_url(f"https://www.youtube.com/watch?v={videoid}")
+    while transcript==None:
+        sleep(5)
+        transcript=transcribe.read_transcript(videoid)
     return transcript
 
 def create_json_response(data: dict):
@@ -81,11 +83,11 @@ def get_transcript(videoid):
 
     return create_json_response(data)
 
-@app.route('/api/youtube/<videoid>/question')
+@app.route('/api/youtube/<videoid>/questions')
 def get_question(videoid):
 
     questions=question.loadquestions(videoid)
-    if questions!=None:
+    if questions!=[]:
         data = { "questions": questions, "id": videoid }
         print(questions)
         return create_json_response(data)
